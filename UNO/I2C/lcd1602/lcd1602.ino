@@ -6,18 +6,28 @@ LiquidCrystal_I2C lcd(0x3F,16,2);
 int sensorPin = A0;
 int sensorValue = 0;
 
+int waitCnt = 0;
+
 void setup()
 {
   lcd.init();
   lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Brightness Level");
+  Serial.begin (9600);
 }
 
 void loop() {
+  waitCnt ++;
   sensorValue = analogRead(sensorPin);
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(sensorValue);
-  lcd.setCursor(0, 1);
-  lcd.print("Hello LCD");
-  delay(500);
+  Serial.println(sensorValue);
+  if (waitCnt > 10) {
+    //lcd.clear();
+    lcd.setCursor(0, 1);
+    char value[16];
+    sprintf(value, "          --% 4d", sensorValue);
+    lcd.print(value);
+    waitCnt = 0;
+  }
+  delay(100);
 }
