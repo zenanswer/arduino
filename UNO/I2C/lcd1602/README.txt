@@ -7,6 +7,6 @@ SDA           A4
 SCL           A5
 
 NOTE: 
-(1) on Arduino Uno,
+(1) on Arduino YUN,
 you have to SDA->SDA, and SCL->SCL.
 A4 and A5 do not work for ICS LCD.
